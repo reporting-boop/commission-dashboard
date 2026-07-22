@@ -1,0 +1,211 @@
+/* ══════════════════════════════════════════════════════════════
+   METRO DESIGN SYSTEM — tokens
+   Light theme lives on :root. Dark theme overrides via
+   [data-theme="dark"] on <html>, toggled by ThemeProvider
+   (see src/theme.js) and persisted to localStorage.
+   Every component should reference these via var(--token) rather
+   than hardcoding hex values, so theme switching is automatic.
+   ══════════════════════════════════════════════════════════════ */
+:root {
+  /* Brand — stays vivid in both themes */
+  --brand-purple: #5b2d8e;
+  --brand-purple-dark: #3d1d63;
+  --brand-pink: #e6007e;
+  --brand-success: #16a34a;
+  --brand-danger: #dc2626;
+  --brand-teal: #0d9488;
+  --brand-blue: #2563eb;
+
+  /* Surfaces */
+  --bg: #f3eefa;
+  --bg-gradient: linear-gradient(180deg, #f6f2fc 0%, #f0eafa 100%);
+  --surface: #ffffff;
+  --surface-hover: #faf7ff;
+  --surface-sunken: #f9fafb;
+  --sidebar-bg: #ffffff;
+  --sidebar-inner: #2a1244;
+
+  /* Borders */
+  --border: #e9e3f5;
+  --border-soft: #f1edf9;
+
+  /* Text hierarchy */
+  --text-primary: #1f1236;
+  --text-secondary: #4b5563;
+  --text-muted: #8b8398;
+  --text-on-dark: #ffffff;
+
+  /* Elevation */
+  --shadow-sm: 0 1px 3px rgba(43, 21, 74, .06);
+  --shadow-md: 0 4px 16px rgba(43, 21, 74, .08);
+  --shadow-lg: 0 12px 32px rgba(43, 21, 74, .14);
+  --shadow-float: 0 8px 24px rgba(43, 21, 74, .10);
+
+  /* Radius */
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 20px;
+
+  /* Motion */
+  --ease: cubic-bezier(.4,0,.2,1);
+  --t-fast: 150ms;
+  --t-med: 250ms;
+
+  /* Solid (fully opaque) header tints for DetailTable — must never be
+     translucent, or sticky headers show scrolled rows through them. */
+  --header-neutral-bg: #f4f0fb;
+  --header-neutral-bg-open: #ebe3f7;
+  --header-neutral-border: #e0d3f2;
+  --header-pay-bg: #eaf7ee;
+  --header-pay-bg-open: #dbf0e2;
+  --header-pay-border: #c8e9d3;
+  --header-charge-bg: #fcedec;
+  --header-charge-bg-open: #f9dcda;
+  --header-charge-border: #f3c9c6;
+
+  /* Ranked-breakdown label/value color when sitting on the light tinted
+     track (not on the filled bar). Stays the accent color in light mode;
+     switches to white in dark mode where the tinted track is too dark
+     for the accent color to read clearly. */
+  --rankbar-text-purple: #5b2d8e;
+  --rankbar-text-red: #dc2626;
+}
+
+[data-theme="dark"] {
+  --brand-purple: #a78bfa;
+  --brand-purple-dark: #7c3aed;
+  --brand-pink: #f472b6;
+  --brand-success: #4ade80;
+  --brand-danger: #f87171;
+  --brand-teal: #2dd4bf;
+  --brand-blue: #60a5fa;
+
+  --bg: #0f172a;
+  --bg-gradient: linear-gradient(180deg, #0f172a 0%, #0b1222 100%);
+  --surface: #1e293b;
+  --surface-hover: #253449;
+  --surface-sunken: #16223a;
+  --sidebar-bg: #111827;
+  --sidebar-inner: #111827;
+
+  --border: #2b3b54;
+  --border-soft: #22314a;
+
+  --text-primary: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --text-muted: #7c8aa5;
+  --text-on-dark: #ffffff;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, .35);
+  --shadow-md: 0 4px 18px rgba(0, 0, 0, .45);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, .55);
+  --shadow-float: 0 8px 28px rgba(0, 0, 0, .5);
+
+  --header-neutral-bg: #241a3d;
+  --header-neutral-bg-open: #2d2350;
+  --header-neutral-border: #392a5c;
+  --header-pay-bg: #142a1d;
+  --header-pay-bg-open: #193723;
+  --header-pay-border: #234a30;
+  --header-charge-bg: #2e1a1a;
+  --header-charge-bg-open: #3c2222;
+  --header-charge-border: #4d2b2b;
+
+  --rankbar-text-purple: #ffffff;
+  --rankbar-text-red: #ffffff;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+#root {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+html {
+  color-scheme: light;
+}
+html[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--bg);
+  transition: background-color var(--t-med) var(--ease);
+}
+
+/* Smooth, non-jarring theme switch across every themed surface */
+body, body * {
+  transition: background-color var(--t-med) var(--ease),
+              border-color var(--t-med) var(--ease),
+              color var(--t-med) var(--ease),
+              box-shadow var(--t-med) var(--ease);
+}
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+.metro-panel-hover:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md) !important;
+}
+
+@keyframes metro-fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.metro-fade-in { animation: metro-fade-in 220ms cubic-bezier(.4,0,.2,1); }
+
+/* ── Global native <select> dropdown fix ──────────────────────────
+   Several <select> elements in this app are styled with white text
+   (e.g. the purple-pill filters in the page header). Browsers inherit
+   that color into the native <option> popup list, which renders on a
+   white system background — making the options invisible. This rule
+   overrides the option list specifically, everywhere in the app, so
+   every dropdown stays readable no matter how its closed state is
+   styled. The closed <select> box itself is untouched. */
+select {
+  color-scheme: light;
+}
+
+select option {
+  color: #1F2937;
+  background-color: #ffffff;
+}
+
+select option:checked {
+  background-color: #f3e8ff;
+  color: #5b2d8e;
+  font-weight: 600;
+}
+
+select option:hover,
+select option:focus {
+  background-color: #f3e8ff;
+  color: #5b2d8e;
+}
+
+[data-theme="dark"] select {
+  color-scheme: dark;
+}
+[data-theme="dark"] select option {
+  color: #f1f5f9;
+  background-color: #1e293b;
+}
+[data-theme="dark"] select option:checked,
+[data-theme="dark"] select option:hover,
+[data-theme="dark"] select option:focus {
+  background-color: #3d1d63;
+  color: #f1f5f9;
+}
